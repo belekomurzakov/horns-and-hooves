@@ -1,9 +1,11 @@
 public class OpportunityTriggerHandler extends TriggerHandler {
-    private Map<Id, Opportunity> newOppMap;
-    private Map<Id, Opportunity> oldOpportunityMap;
+    private List<Opportunity> newOpportunitiesList;
 
     public OpportunityTriggerHandler() {
-        this.newOppMap = (Map<Id, Opportunity>) Trigger.newMap;
-        this.oldOpportunityMap = (Map<Id, Opportunity>) Trigger.oldMap;
+        this.newOpportunitiesList = (List<Opportunity>) Trigger.new;
+    }
+
+    public override void beforeInsert() {
+        OpportunityService.notifyOnInsert(newOpportunitiesList);
     }
 }

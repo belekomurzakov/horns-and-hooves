@@ -12,4 +12,8 @@ public with sharing class SalesTeamUserTriggerHandler extends TriggerHandler {
     public override void beforeInsert() {
         SalesTeamUserService.setSalesTeam(newSalesTeamUserList);
     }
+
+    public override void beforeUpdate() {
+        SalesTeamUserService.setSalesTeam(newSalesTeamUserList);
+    }
 }
