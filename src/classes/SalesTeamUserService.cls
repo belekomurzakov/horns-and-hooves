@@ -1,5 +1,12 @@
 public with sharing class SalesTeamUserService {
 
+    /**
+     * Method updates Sales Team field on Sales Team User object
+     * based on Interested Notification Types field.
+     * It's required to ensure that data consistency.
+     *
+     * @param newList list of opportunities on before insert/update
+     */
     public static void setSalesTeam(List<Sales_Team_User__c> newList) {
         Map<String, Sales_Team__c> salesTeamMap = new Map<String, Sales_Team__c>();
 
