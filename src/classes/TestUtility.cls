@@ -25,7 +25,7 @@ public with sharing class TestUtility {
 
     public static Sales_Team__c selectSalesTeamByNotificationType(String notificationType) {
         return [
-                SELECT Id
+                SELECT Id, Notification_Type__c
                 FROM Sales_Team__c
                 WHERE Notification_Type__c = :notificationType
         ];
