@@ -39,6 +39,8 @@ separate teams.
 │  │  ├─ TriggerHandler             # TriggerFramework
 │  │  └─ NotificationHelper         # Helper class for sending messages
 │  │
+│  ├─ staticresources/             
+│  │
 │  └─ triggers/                     # Triggers
 │     ├─ AccountTrigger             
 │     ├─ ContactTrigger       
