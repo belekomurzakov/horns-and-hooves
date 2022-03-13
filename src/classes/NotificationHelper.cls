@@ -1,8 +1,50 @@
 public with sharing class NotificationHelper {
+    private static final Integer RECIPIENT_MAX = 9;
 
     //I didn't put it to enum, because Apex unlike Java doesn't support parameters/methods.
     public final static String INSERTING_NEW_RECORD = 'Inserting new record';
     public final static String UPDATING_OWNER_FIELD = 'Updating owner field';
     public final static String UPDATING_STATUS_FIELD = 'Updating status field';
 
+
+    /**
+     * ConnectApi.ChatterMessages.sendMessage() support sending message up to 9 recipients, so following method
+     * sends message in several iterations.
+     *
+     * @param textMessage
+     * @param recipientsUsers
+     */
+    public static void sendMessages(String textMessage, List<Sales_Team_User__c> recipientsUsers) {
+        Set<Id> salesTeamUserIds = new Set<Id>();
+        String recipients = '';
+        Integer i = 0;
+
+        for (Sales_Team_User__c salesTeamUser : recipientsUsers) {
+            if (i <= RECIPIENT_MAX) {
+                salesTeamUserIds.add(salesTeamUser.Id__c);
+                i++;
+            } else {
+                recipients = salesTeamUserIds.toString().replace('{', '').replace('}', '');
+
+                try {
+                    ConnectApi.ChatterMessages.sendMessage(textMessage, recipients);
+                } catch (Exception e) {
+                    System.debug(e.getMessage());
+                }
+
+                salesTeamUserIds.clear();
+                recipients = '';
+                i = 0;
+            }
+        }
+
+        if (salesTeamUserIds.size() > 0) {
+            recipients = salesTeamUserIds.toString().replace('{', '').replace('}', '');
+            try {
+                ConnectApi.ChatterMessages.sendMessage(textMessage, recipients);
+            } catch (Exception e) {
+                System.debug(e.getMessage());
+            }
+        }
+    }
 }
