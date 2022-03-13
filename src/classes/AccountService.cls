@@ -7,40 +7,45 @@ public with sharing class AccountService {
      * @param newList list of accounts
      */
     public static void notifyOnInsert(List<Account> newList) {
-        Map<Id, Account> accountsWithSalesTeam = new Map<Id, Account>();
+        Set<Id> accountsWithSalesTeam = new Set<Id>();
 
-        String text = 'Checkout new created accounts: ';
-        for (Account Account : newList) {
-            if (Account.Sales_Team__c != null) {
-                accountsWithSalesTeam.put(Account.Sales_Team__c, Account);
-                text += '\nName: ' + Account.Name +
-                        ', Type: ' + Account.Type +
-                        ', Industry: ' + Account.Industry;
+        String text = 'Hi,\n checkout new created new following accounts: ';
+        for (Account account : newList) {
+            if (!String.isBlank(account.Sales_Team__c)) {
+                accountsWithSalesTeam.add(account.Sales_Team__c);
+                text += '\nName: ' + account.Name +
+                        ', Type: ' + account.Type +
+                        ', Industry: ' + account.Industry;
             }
         }
 
-        NotificationHelper.sendMessages(text, NotificationHelper.INSERTING_NEW_RECORD, accountsWithSalesTeam.keySet());
+        NotificationHelper.sendMessages(text, NotificationHelper.INSERTING_NEW_RECORD, accountsWithSalesTeam);
     }
 
+    /**
+     * Method will trigger on update event, send private messages for OwnerId and Status__c fields change.
+     * Text messages are unique for both fields, and sending separately to different interested teams.
+     *
+     * @param oldMap map of accounts with old values
+     * @param newMap map of accounts with new values
+     */
     public static void notifyOnUpdate(Map<Id, Account> oldMap, Map<Id, Account> newMap) {
-        Map<Id, Account> accountsOnOwnerUpdate = new Map<Id, Account>();
-        Map<Id, Account> accountsOnStatusUpdate = new Map<Id, Account>();
+        Set<Id> accountsOnOwnerUpdate = new Set<Id>();
+        Set<Id> accountsOnStatusUpdate = new Set<Id>();
 
         String textOwnerUpdate = 'Hi,\n notifying you on update of Owner field on following accounts: ';
         String textStatusUpdate = 'Hi,\n notifying you on update of Status field on following accounts: ';
 
         for (Id id : newMap.keySet()) {
             if (!String.isBlank(newMap.get(id).Sales_Team__c)) {
-
-                if (oldMap.get(id).Owner != newMap.get(id).Owner) {
-                    accountsOnOwnerUpdate.put(Account.Sales_Team__c, Account);
+                if (oldMap.get(id).OwnerId != newMap.get(id).OwnerId) {
+                    accountsOnOwnerUpdate.add(newMap.get(id).Sales_Team__c);
                     textOwnerUpdate += '\nAccount: ' + id +
-                            ', ' + 'old owner: ' + oldMap.get(id).Owner +
-                            ', ' + 'new owner: ' + newMap.get(id).Owner;
+                            ', ' + 'old owner: ' + oldMap.get(id).OwnerId +
+                            ', ' + 'new owner: ' + newMap.get(id).OwnerId;
                 }
-
                 if (oldMap.get(id).Status__c != newMap.get(id).Status__c) {
-                    accountsOnStatusUpdate.put(Account.Sales_Team__c, Account);
+                    accountsOnStatusUpdate.add(newMap.get(id).Sales_Team__c);
                     textStatusUpdate += '\nAccount: ' + id +
                             ', ' + 'old status: ' + oldMap.get(id).Status__c +
                             ', ' + 'new status: ' + newMap.get(id).Status__c;
@@ -48,7 +53,7 @@ public with sharing class AccountService {
             }
         }
 
-        NotificationHelper.sendMessages(textOwnerUpdate, NotificationHelper.UPDATING_OWNER_FIELD, accountsOnOwnerUpdate.keySet());
-        NotificationHelper.sendMessages(textStatusUpdate, NotificationHelper.UPDATING_STATUS_FIELD, accountsOnStatusUpdate.keySet());
+        NotificationHelper.sendMessages(textOwnerUpdate, NotificationHelper.UPDATING_OWNER_FIELD, accountsOnOwnerUpdate);
+        NotificationHelper.sendMessages(textStatusUpdate, NotificationHelper.UPDATING_STATUS_FIELD, accountsOnStatusUpdate);
     }
 }
