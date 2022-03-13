@@ -13,7 +13,9 @@ public with sharing class OpportunityService {
         for (Opportunity opportunity : newList) {
             if (opportunity.Sales_Team__c != null) {
                 opportunitiesWithSalesTeam.put(opportunity.Sales_Team__c, opportunity);
-                textMessage += '\n' + opportunity.Id + ' ' + opportunity.Name;
+                textMessage += '\nName: ' + opportunity.Name +
+                        ', StageName: ' + opportunity.StageName +
+                        ', CloseDate: ' + opportunity.CloseDate;
             }
         }
 
