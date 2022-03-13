@@ -1,4 +1,8 @@
 # Proof of Concept: Horns & Hooves
+💫 [Anonymous Apex Code snippets to reproduce scenarios](https://github.com/belekomurzakov/horns-and-hooves/blob/master/src/staticresources/REPRODUCESTEPS.md)
+
+♻️ Overall code coverage is 100%<br>
+🌛 Covered 308/308 lines
 
 ### Feature #1:
 - Sales Team Users are grouped by Interested Notification Types (Picklist), so implemented trigger on Sales Team User 
