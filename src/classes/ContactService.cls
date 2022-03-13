@@ -10,12 +10,12 @@ public with sharing class ContactService {
         Map<Id, Contact> contactsWithSalesTeam = new Map<Id, Contact>();
 
         String text = 'Checkout new created contacts: ';
-        for (Contact Contact : newList) {
-            if (Contact.Sales_Team__c != null) {
-                contactsWithSalesTeam.put(Contact.Sales_Team__c, Contact);
-                text += '\nName: ' + Contact.Name +
-                        ', Department: ' + Contact.Department +
-                        ', Email: ' + Contact.Email;
+        for (Contact contact : newList) {
+            if (contact.Sales_Team__c != null) {
+                contactsWithSalesTeam.put(contact.Sales_Team__c, contact);
+                text += '\nName: ' + contact.FirstName + ' ' + contact.LastName +
+                        ', Department: ' + contact.Department +
+                        ', Email: ' + contact.Email;
             }
         }
 
