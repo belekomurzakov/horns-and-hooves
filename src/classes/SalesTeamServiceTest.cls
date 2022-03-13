@@ -47,6 +47,7 @@ private class SalesTeamServiceTest {
 
     @IsTest
     static void setSalesTeamUserIdTest() {
+        //given
         Sales_Team_User__c salesTeamUser = new Sales_Team_User__c(
                 First_Name__c = 'test',
                 Last_Name__c = 'tester',
