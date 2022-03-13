@@ -18,4 +18,16 @@ public with sharing class TestUtility {
                 LanguageLocaleKey = 'en_US'
         );
     }
+
+    public static Account selectAccountByName(String name) {
+        return [SELECT Id FROM Account WHERE Name = :name];
+    }
+
+    public static Sales_Team__c selectSalesTeamByNotificationType(String notificationType) {
+        return [
+                SELECT Id
+                FROM Sales_Team__c
+                WHERE Notification_Type__c = :notificationType
+        ];
+    }
 }
