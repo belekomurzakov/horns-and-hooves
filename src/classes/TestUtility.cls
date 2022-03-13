@@ -1,9 +1,15 @@
 @IsTest
 public with sharing class TestUtility {
-    @IsTest
-    static void test() {
-    }
 
+    @IsTest
+    static void test() {}
+
+    /**
+     * @param profileId
+     * @param username
+     *
+     * @return single User record
+     */
     public static User createUser(Id profileId, String username) {
         return new User(
                 FirstName = 'David',
@@ -19,10 +25,21 @@ public with sharing class TestUtility {
         );
     }
 
+
+    /**
+     * @param name
+     *
+     * @return single Account record
+     */
     public static Account selectAccountByName(String name) {
-        return [SELECT Id FROM Account WHERE Name = :name];
+        return [SELECT Id FROM Account WHERE Name = :name LIMIT 1];
     }
 
+    /**
+     * @param notificationType
+     *
+     * @return return single Sales_Team__c record, because there is only one team per notificationType
+     */
     public static Sales_Team__c selectSalesTeamByNotificationType(String notificationType) {
         return [
                 SELECT Id, Notification_Type__c

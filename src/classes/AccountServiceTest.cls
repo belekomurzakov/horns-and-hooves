@@ -56,11 +56,7 @@ private class AccountServiceTest {
     static void notifyOnInsertTest() {
         //given
         List<Account> accountsToInsert = new List<Account>();
-        Id salesTeamId = [
-                SELECT Id
-                FROM Sales_Team__c
-                WHERE Notification_Type__c = :NotificationHelper.INSERTING_NEW_RECORD
-        ]?.Id;
+        Id salesTeamId = TestUtility.selectSalesTeamByNotificationType(NotificationHelper.INSERTING_NEW_RECORD)?.Id;
 
         for (Integer i = 0; i <= 3; i++) {
             accountsToInsert.add(
@@ -80,11 +76,7 @@ private class AccountServiceTest {
     static void notifyOnOwnerUpdate() {
         //given
         List<Account> accounts = new List<Account>();
-        Id salesTeamId = [
-                SELECT Id
-                FROM Sales_Team__c
-                WHERE Notification_Type__c = :NotificationHelper.UPDATING_OWNER_FIELD
-        ]?.Id;
+        Id salesTeamId = TestUtility.selectSalesTeamByNotificationType(NotificationHelper.UPDATING_OWNER_FIELD)?.Id;
 
         for (Integer i = 0; i <= 3; i++) {
             accounts.add(
@@ -111,12 +103,7 @@ private class AccountServiceTest {
     static void notifyOnStatusUpdate() {
         //given
         String CURRENT_CUSTOMER = 'Current Customer';
-
-        Id salesTeamId = [
-                SELECT Id
-                FROM Sales_Team__c
-                WHERE Notification_Type__c = :NotificationHelper.UPDATING_STATUS_FIELD
-        ]?.Id;
+        Id salesTeamId = TestUtility.selectSalesTeamByNotificationType(NotificationHelper.UPDATING_STATUS_FIELD)?.Id;
 
         List<Account> accounts = new List<Account>();
         for (Integer i = 0; i <= 3; i++) {

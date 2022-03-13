@@ -58,11 +58,8 @@ private class ContactServiceTest {
     static void notifyOnInsertTest() {
         //given
         List<Contact> contactsToInsert = new List<Contact>();
-        Id salesTeamId = [
-                SELECT Id
-                FROM Sales_Team__c
-                WHERE Notification_Type__c = :NotificationHelper.INSERTING_NEW_RECORD
-        ]?.Id;
+        Id salesTeamId = TestUtility.selectSalesTeamByNotificationType(NotificationHelper.INSERTING_NEW_RECORD)?.Id;
+
 
         for (Integer i = 0; i <= 3; i++) {
             contactsToInsert.add(
@@ -83,11 +80,8 @@ private class ContactServiceTest {
     static void notifyOnOwnerUpdate() {
         //given
         List<Contact> contacts = new List<Contact>();
-        Id salesTeamId = [
-                SELECT Id
-                FROM Sales_Team__c
-                WHERE Notification_Type__c = :NotificationHelper.UPDATING_OWNER_FIELD
-        ]?.Id;
+        Id salesTeamId = TestUtility.selectSalesTeamByNotificationType(NotificationHelper.UPDATING_OWNER_FIELD)?.Id;
+
 
         for (Integer i = 0; i <= 3; i++) {
             contacts.add(
@@ -114,11 +108,7 @@ private class ContactServiceTest {
     @IsTest
     static void notifyOnStatusUpdate() {
         //given
-        Id salesTeamId = [
-                SELECT Id
-                FROM Sales_Team__c
-                WHERE Notification_Type__c = :NotificationHelper.UPDATING_STATUS_FIELD
-        ]?.Id;
+        Id salesTeamId = TestUtility.selectSalesTeamByNotificationType(NotificationHelper.UPDATING_STATUS_FIELD)?.Id;
 
         List<Contact> contacts = new List<Contact>();
         for (Integer i = 0; i <= 3; i++) {
