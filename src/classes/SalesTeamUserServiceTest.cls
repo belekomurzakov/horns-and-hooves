@@ -1,5 +1,5 @@
 @IsTest
-private class SalesTeamServiceTest {
+private class SalesTeamUserServiceTest {
 
     @TestSetup
     static void setup() {
