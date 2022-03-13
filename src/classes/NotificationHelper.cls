@@ -12,14 +12,15 @@ public with sharing class NotificationHelper {
      * sends message in several iterations.
      *
      * @param textMessage
-     * @param recipientsUsers
+     * @param notificationTypes
+     * @param Set<Id> salesTeams
      */
-    public static void sendMessages(String textMessage, List<Sales_Team_User__c> recipientsUsers) {
+    public static void sendMessages(String textMessage, String notificationTypes, Set<Id> salesTeams) {
         Set<Id> salesTeamUserIds = new Set<Id>();
         String recipients = '';
         Integer i = 0;
 
-        for (Sales_Team_User__c salesTeamUser : recipientsUsers) {
+        for (Sales_Team_User__c salesTeamUser : selectSalesTeamUsers(notificationTypes, salesTeams)) {
             if (i <= RECIPIENT_MAX) {
                 salesTeamUserIds.add(salesTeamUser.Id__c);
                 i++;
@@ -48,7 +49,7 @@ public with sharing class NotificationHelper {
         }
     }
 
-    public static List<Sales_Team_User__c> selectSalesTeamUsers(String notificationTypes, Set<Id> salesTeams) {
+    private static List<Sales_Team_User__c> selectSalesTeamUsers(String notificationTypes, Set<Id> salesTeams) {
         return [
                 SELECT Id, Id__c
                 FROM Sales_Team_User__c

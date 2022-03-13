@@ -9,22 +9,16 @@ public with sharing class ContractService {
     public static void notifyOnInsert(List<Contract> newList) {
         Map<Id, Contract> contractsWithSalesTeam = new Map<Id, Contract>();
 
-        String textMessage = 'Checkout new created contracts: ';
+        String text = 'Checkout new created contracts: ';
         for (Contract Contract : newList) {
             if (Contract.Sales_Team__c != null) {
                 contractsWithSalesTeam.put(Contract.Sales_Team__c, Contract);
-                textMessage += '\nName: ' + Contract.Name +
+                text += '\nName: ' + Contract.Name +
                         ', Status: ' + Contract.Status +
                         ', EndDate: ' + Contract.EndDate;
             }
         }
 
-        NotificationHelper.sendMessages(
-                textMessage,
-                NotificationHelper.selectSalesTeamUsers(
-                        NotificationHelper.INSERTING_NEW_RECORD,
-                        contractsWithSalesTeam.keySet()
-                )
-        );
+        NotificationHelper.sendMessages(text, NotificationHelper.INSERTING_NEW_RECORD, contractsWithSalesTeam.keySet());
     }
 }
