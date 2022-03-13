@@ -6,6 +6,12 @@ public with sharing class NotificationHelper {
     public final static String UPDATING_OWNER_FIELD =  'Updating Owner field';
     public final static String UPDATING_STATUS_FIELD = 'Updating Status field';
 
+    @TestVisible
+    private final static List<String> notificationTypes = new List<String>{
+        NotificationHelper.INSERTING_NEW_RECORD,
+        NotificationHelper.UPDATING_STATUS_FIELD,
+        NotificationHelper.UPDATING_OWNER_FIELD
+    };
 
     /**
      * ConnectApi.ChatterMessages.sendMessage() support sending message up to 9 recipients, so following method
