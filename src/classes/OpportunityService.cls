@@ -21,10 +21,10 @@ public with sharing class OpportunityService {
 
         NotificationHelper.sendMessages(
                 textMessage,
-                [SELECT Id, Id__c
-                 FROM Sales_Team_User__c
-                 WHERE Interested_Notification_Types__c = :NotificationHelper.INSERTING_NEW_RECORD
-                 AND Sales_Team__c = :opportunitiesWithSalesTeam.keySet()]
+                NotificationHelper.selectSalesTeamUsers(
+                        NotificationHelper.INSERTING_NEW_RECORD,
+                        opportunitiesWithSalesTeam.keySet()
+                )
         );
     }
 }

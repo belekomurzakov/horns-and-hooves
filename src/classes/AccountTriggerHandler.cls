@@ -1,9 +1,11 @@
 public without sharing class AccountTriggerHandler extends TriggerHandler {
-    private Map<Id, Account> newOppMap;
-    private Map<Id, Account> oldOpportunityMap;
+    private List<Account> newAccountList;
 
     public AccountTriggerHandler() {
-        this.newOppMap = (Map<Id, Account>) Trigger.newMap;
-        this.oldOpportunityMap = (Map<Id, Account>) Trigger.oldMap;
+        this.newAccountList = (List<Account>) Trigger.new;
+    }
+
+    public override void beforeInsert() {
+        AccountService.notifyOnInsert(newAccountList);
     }
 }

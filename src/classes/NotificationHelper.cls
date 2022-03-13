@@ -47,4 +47,13 @@ public with sharing class NotificationHelper {
             }
         }
     }
+
+    public static List<Sales_Team_User__c> selectSalesTeamUsers(String notificationTypes, Set<Id> salesTeams) {
+        return [
+                SELECT Id, Id__c
+                FROM Sales_Team_User__c
+                WHERE Interested_Notification_Types__c = :notificationTypes
+                AND Sales_Team__c = :salesTeams
+        ];
+    }
 }
