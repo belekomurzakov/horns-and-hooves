@@ -8,8 +8,8 @@ public with sharing class OpportunityService {
      */
     public static void notifyOnInsert(List<Opportunity> newList) {
         Map<Id, Opportunity> opportunitiesWithSalesTeam = new Map<Id, Opportunity>();
-        String textMessage = 'Checkout new created opportunities: ';
 
+        String textMessage = 'Checkout new created opportunities: ';
         for (Opportunity opportunity : newList) {
             if (opportunity.Sales_Team__c != null) {
                 opportunitiesWithSalesTeam.put(opportunity.Sales_Team__c, opportunity);

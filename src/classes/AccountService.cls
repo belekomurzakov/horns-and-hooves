@@ -1,21 +1,21 @@
 public with sharing class AccountService {
 
     /**
-     * Method populate text message content for inserted new opportunities and select Sales Team Users,
+     * Method populate text message content for inserted new accounts and select Sales Team Users,
      * which are interested to be notified.
      *
-     * @param newList list of opportunities
+     * @param newList list of accounts
      */
     public static void notifyOnInsert(List<Account> newList) {
         Map<Id, Account> accountsWithSalesTeam = new Map<Id, Account>();
-        String textMessage = 'Checkout new created accounts: ';
 
+        String textMessage = 'Checkout new created accounts: ';
         for (Account Account : newList) {
             if (Account.Sales_Team__c != null) {
                 accountsWithSalesTeam.put(Account.Sales_Team__c, Account);
                 textMessage += '\nName: ' + Account.Name +
-                        ', StageName: ' + Account.Type +
-                        ', CloseDate: ' + Account.Industry;
+                        ', Type: ' + Account.Type +
+                        ', Industry: ' + Account.Industry;
             }
         }
 
