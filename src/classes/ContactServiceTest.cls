@@ -1,5 +1,7 @@
 @IsTest
-private class AccountServiceTest {
+private class ContactServiceTest {
+
+    static final String PRIMARY = 'Primary';
 
     @TestSetup
     static void setup() {
@@ -55,7 +57,7 @@ private class AccountServiceTest {
     @IsTest
     static void notifyOnInsertTest() {
         //given
-        List<Account> accountsToInsert = new List<Account>();
+        List<Contact> contactsToInsert = new List<Contact>();
         Id salesTeamId = [
                 SELECT Id
                 FROM Sales_Team__c
@@ -63,23 +65,24 @@ private class AccountServiceTest {
         ]?.Id;
 
         for (Integer i = 0; i <= 3; i++) {
-            accountsToInsert.add(
-                    new Account(
-                            Name = 'test',
+            contactsToInsert.add(
+                    new Contact(
+                            FirstName = 'Linus',
+                            LastName = 'Torvalds',
                             Sales_Team__c = salesTeamId
                     )
             );
         }
         //when
         Test.startTest();
-        insert accountsToInsert;
+        insert contactsToInsert;
         Test.stopTest();
     }
 
     @IsTest
     static void notifyOnOwnerUpdate() {
         //given
-        List<Account> accounts = new List<Account>();
+        List<Contact> contacts = new List<Contact>();
         Id salesTeamId = [
                 SELECT Id
                 FROM Sales_Team__c
@@ -87,54 +90,54 @@ private class AccountServiceTest {
         ]?.Id;
 
         for (Integer i = 0; i <= 3; i++) {
-            accounts.add(
-                    new Account(
-                            Name = 'test',
+            contacts.add(
+                    new Contact(
+                            FirstName = 'Linus',
+                            LastName = 'Torvalds',
                             Sales_Team__c = salesTeamId
                     )
             );
         }
-        insert accounts;
+        insert contacts;
 
         User newOwner = [SELECT Id FROM User LIMIT 1];
 
-        for (Account account : accounts) {
-            account.OwnerId = newOwner.Id;
+        for (Contact contact : contacts) {
+            contact.OwnerId = newOwner.Id;
         }
         //when
         Test.startTest();
-        update accounts;
+        update contacts;
         Test.stopTest();
     }
 
     @IsTest
     static void notifyOnStatusUpdate() {
         //given
-        String CURRENT_CUSTOMER = 'Current Customer';
-
         Id salesTeamId = [
                 SELECT Id
                 FROM Sales_Team__c
                 WHERE Notification_Type__c = :NotificationHelper.UPDATING_STATUS_FIELD
         ]?.Id;
 
-        List<Account> accounts = new List<Account>();
+        List<Contact> contacts = new List<Contact>();
         for (Integer i = 0; i <= 3; i++) {
-            accounts.add(
-                    new Account(
-                            Name = 'test',
+            contacts.add(
+                    new Contact(
+                            FirstName = 'Linus',
+                            LastName = 'Torvalds',
                             Sales_Team__c = salesTeamId
                     )
             );
         }
-        insert accounts;
+        insert contacts;
 
-        for (Account account : accounts) {
-            account.Status__c = CURRENT_CUSTOMER;
+        for (Contact contact : contacts) {
+            contact.Status__c = PRIMARY;
         }
         //when
         Test.startTest();
-        update accounts;
+        update contacts;
         Test.stopTest();
     }
 }
