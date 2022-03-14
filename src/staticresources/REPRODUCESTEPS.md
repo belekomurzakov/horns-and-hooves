@@ -1,6 +1,6 @@
 ## Inserting new record
 ### Account:
-```
+```Apex
 List<Account> accounts = new List<Account>();
 for (Integer i = 0; i < 10; i++) {
     accounts.add(
@@ -16,7 +16,7 @@ for (Integer i = 0; i < 10; i++) {
 insert accounts;
 ```
 ### Contact:
-```
+```Apex
 List<Contact> contacts = new List<Contact>();
 for (Integer i = 0; i < 10; i++) {
     contacts.add(
@@ -33,7 +33,7 @@ for (Integer i = 0; i < 10; i++) {
 insert contacts;
 ```
 ### Opportunity:
-```
+```Apex
 List<Opportunity> opportunities = new List<Opportunity>();
 for (Integer i = 0; i < 10; i++) {
     opportunities.add(
@@ -49,7 +49,7 @@ for (Integer i = 0; i < 10; i++) {
 insert opportunities;
 ```
 ### Contract:
-```
+```Apex
 Account account = new Account(Name = 'test');
 insert account;
 
@@ -69,7 +69,7 @@ insert contracts;
 ```
 ## Updating Owner field
 ### Account:
-```
+```Apex
 List<Account> accounts = new List<Account>();
 for (Integer i = 0; i < 10; i++) {
     accounts.add(
@@ -89,7 +89,7 @@ for (Account a : accounts) {
 update accounts;
 ```
 ### Contact:
-```
+```Apex
 List<Contact> contacts = new List<Contact>();
 for (Integer i = 0; i < 10; i++) {
     contacts.add(
@@ -112,7 +112,7 @@ for (Contact c : contacts) {
 update contacts;
 ```
 ### Opportunity:
-```
+```Apex
 List<Opportunity> opportunities = new List<Opportunity>();
 for (Integer i = 0; i < 10; i++) {
     opportunities.add(
@@ -134,7 +134,7 @@ for (Opportunity o : opportunities) {
 update opportunities;
 ```
 ### Contract:
-```
+```Apex
 Account account = new Account(Name = 'test');
 insert account;
 
@@ -160,7 +160,7 @@ update contracts;
 ```
 ## Updating Status field
 ### Account:
-```
+```Apex
 List<Account> accounts = new List<Account>();
 for (Integer i = 0; i < 10; i++) {
     accounts.add(
@@ -180,7 +180,7 @@ for (Account a : accounts) {
 update accounts;
 ```
 ### Contact:
-```
+```Apex
 List<Contact> contacts = new List<Contact>();
 for (Integer i = 0; i < 10; i++) {
     contacts.add(
@@ -203,7 +203,7 @@ for (Contact c : contacts) {
 update contacts;
 ```
 ### Opportunity:
-```
+```Apex
 List<Opportunity> opportunities = new List<Opportunity>();
 for (Integer i = 0; i < 10; i++) {
     opportunities.add(
@@ -225,7 +225,7 @@ for (Opportunity o : opportunities) {
 update opportunities;
 ```
 ### Contract:
-```
+```Apex
 Account account = new Account(Name = 'test');
 insert account;
 
